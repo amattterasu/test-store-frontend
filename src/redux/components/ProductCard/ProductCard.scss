@@ -1,0 +1,28 @@
+.products {
+
+  .productCard {
+    padding: 2%;
+    flex: 0 16%;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+
+    .productImage {
+      width: 200px;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .productInfo {
+      text-align: center;
+    }
+
+    button {
+      cursor: pointer;
+    }
+  }
+}
+
