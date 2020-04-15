@@ -3,27 +3,7 @@ export type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    items: [
-        {
-            id: 0,
-            title: "Происхождение1",
-            image: "https://cv9.litres.ru/pub/c/elektronnaya-kniga/cover_415/27624091-den-braun-proishozhdenie-27624091.jpg",
-            price: 710
-        },
-        {
-            id: 1,
-            title: "Происхождение2",
-            image: "https://cv9.litres.ru/pub/c/elektronnaya-kniga/cover_415/27624091-den-braun-proishozhdenie-27624091.jpg",
-            price: 3720
-        },
-        {
-            id: 2,
-            title: "Происхождение3",
-            image: "https://cv9.litres.ru/pub/c/elektronnaya-kniga/cover_415/27624091-den-braun-proishozhdenie-27624091.jpg",
-            price: 221
-        },
-
-    ]
+    items: []
 }
 
 const basketReducer = (state = initialState, action: any): InitialStateType => {

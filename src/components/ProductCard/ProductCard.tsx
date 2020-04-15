@@ -1,16 +1,18 @@
 import React from 'react';
 import './ProductCard.scss'
 
-const ProductCard: React.FC = () => {
+const ProductCard: React.FC = (props) => {
+    const {title, price, image}: any = props
+
     return (
         <div className='productCard'>
             <div className='productImage'>
                 <img
-                    src='https://cv9.litres.ru/pub/c/elektronnaya-kniga/cover_415/27624091-den-braun-proishozhdenie-27624091.jpg'/>
+                    src={image}/>
             </div>
             <div className='productInfo'>
-                <h3>Название товара</h3>
-                <p className='price'>2999</p>
+                <h3>{title}</h3>
+                <p className='price'>{price}</p>
             </div>
             <button>Добавить в корзину (0)</button>
         </div>
