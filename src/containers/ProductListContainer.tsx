@@ -1,80 +1,103 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {AppStateType} from "../redux/reducers/rootReducer";
 import {connect} from "react-redux";
+import {NavLink, useLocation} from "react-router-dom";
+import {bindActionCreators} from "redux";
 
-import {useLocation} from 'react-router-dom'
+import * as basketActions from '../redux/actions/basket'
+import * as productsAction from '../redux/actions/products'
+
+import '../App.scss'
 
 import ProductCard from "../components/ProductCard/ProductCard";
 import CatalogCategory from "../components/CatalogCatagory/CatalogCategory";
-import {NavLink} from "react-router-dom";
 
 const ProductListContainer = (props: any) => {
 
+    //Сортировка по алфавиту
+    let sortProducts = props.products
+    sortProducts.sort((a: any, b: any) => a.title.localeCompare(b.title))
+
     let location = useLocation();
+
+    const {addToBasket, setCurrentPage, totalProductsCount, currentPage, pageSize} = props
+
+    let pagesCount = Math.ceil(totalProductsCount / pageSize)
+    let pages = []
+
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
+
+    const onPageChange = (page: number) => {
+        setCurrentPage(page)
+    }
 
     switch (location.pathname) {
         case '/catalog/catalog_1_1':
             return (
                 <>
-                    <div className='products'>
-                        {
-                            props.products1.map((product: any) => (
-                                    <ProductCard {...product}/>
-                                )
-                            )
-                        }
-                    </div>
                     <div className='catalogs'>
                         {
-                           props.catalogs2.map((catalog: any) => {
-                                return <NavLink className='catalog'
+                            props.catalogs2.map((catalog: any, i: number) => {
+                                return <NavLink key={i} className='catalog'
                                                 to={`/catalog/${catalog.url}`}><CatalogCategory {...catalog}/>
                                 </NavLink>
                             })
                         }
                     </div>
-                </>
+                    <div className='paginator'>
+                        {pages.map(p => {
 
+                            return <span key={p} className={currentPage === p ? 'selectedPage' : ''}
+                                         onClick={() => onPageChange(p)}>{p}</span>
+                        })}
 
-            );
-        case '/catalog/catalog_1_2':
-            return (
-                <div className='products'>
-                    {
-                        props.products2.map((product: any) => (
-                                <ProductCard {...product}/>
+                    </div>
+                    <div className='products'>
+                        {
+                            props.products.map((product: any, i: number) => (
+                                    product.pageNumber === currentPage &&
+                                    <ProductCard key={i} {...product} addToBasket={addToBasket}/>
+                                )
                             )
-                        )
-                    }
-                </div>
+                        }
+                    </div>
+                </>
             );
         case '/catalog/catalog_2_1':
             return (
-                <div className='products'>
-                    {
-                        props.products3.map((product: any) => (
-                                <ProductCard {...product}/>
+                <>
+                    <div className='products'>
+                        {
+                            props.products.map((product: any, i: number) => (
+                                    product.pageNumber === currentPage &&
+                                    <ProductCard key={i} {...product} addToBasket={addToBasket}/>
+                                )
                             )
-                        )
-                    }
-                </div>
-
+                        }
+                    </div>
+                </>
             );
+
         default:
-            return (
-                <div className='products'>
-
-                </div>
-            );
+            return null
     }
 };
 
 const mapStateToProps = (state: AppStateType) => ({
-    products1: state.products.category1,
-    products2: state.products.category2,
-    products3: state.products.category3,
-    catalogs2: state.catalogs.category2
+    products: state.products.items,
+    catalogs2: state.catalogs.category2,
+    pageSize: state.products.pageSize,
+    currentPage: state.products.currentPage,
+    totalProductsCount: state.products.items.length
+
 })
 
-export default connect(mapStateToProps, null)(ProductListContainer)
+const mapDispatchToProps = (dispatch: any) => ({
+    ...bindActionCreators(basketActions, dispatch),
+    ...bindActionCreators(productsAction, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListContainer)
 

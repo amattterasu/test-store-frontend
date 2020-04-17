@@ -26,13 +26,13 @@ const initialState: InitialStateType = {
             image: "https://topsto-crimea.ru/images/companies/1/santeh/PersonalComputer-1.jpg?1564659341960",
             url: "catalog_2_1"
         },
-    ]
+    ],
 }
 
+///???? ????/
 const catalogReducer = (state = initialState, action: any): InitialStateType => {
 
     return state
-
 }
 
 export default catalogReducer

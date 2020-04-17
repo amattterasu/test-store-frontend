@@ -2,7 +2,10 @@ import React from 'react';
 
 import './Header.scss'
 
-const Header: React.FC = () => {
+const Header: React.FC = (props: any) => {
+
+    const {totalPrice, count} = props
+
     return (
         <header>
             <div className='headerContainer'>
@@ -10,10 +13,10 @@ const Header: React.FC = () => {
             </div>
             <div className='headerContainer'>
                 <div className='headerItem'>
-                    Итог <b>0</b>
+                    Итог <b>{totalPrice}</b>
                 </div>
                 <div className='headerItem'>
-                    Корзина <b>0</b>
+                    Корзина <b>{count}</b>
                 </div>
             </div>
         </header>

@@ -1,20 +1,22 @@
 import React from 'react';
 import './ProductCard.scss'
 
-const ProductCard: React.FC = (props) => {
-    const {title, price, image}: any = props
-
+const ProductCard: React.FC = (product) => {
+    const {title, price, image, addToBasket}: any = product
     return (
         <div className='productCard'>
             <div className='productImage'>
                 <img
-                    src={image}/>
+                    src={image} alt={'image_product'}/>
             </div>
             <div className='productInfo'>
                 <h3>{title}</h3>
                 <p className='price'>{price}</p>
             </div>
-            <button>Добавить в корзину (0)</button>
+            <button onClick={() => addToBasket(product)}>
+                Добавить в корзину
+            </button>
+
         </div>
     );
 };
