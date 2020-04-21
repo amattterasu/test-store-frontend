@@ -1,8 +1,12 @@
 import React from 'react';
-import './CatalogCategory.scss'
+import './CatalogCard.scss'
 
-const CatalogCategory: React.FC = (props) => {
-    const {title, image}: any = props
+type Props = {
+    title: string
+    image: string
+}
+
+const CatalogCard: React.FC<Props> = ({title, image}) => {
     return (
         <>
             <div className='catalogImage'>
@@ -15,4 +19,4 @@ const CatalogCategory: React.FC = (props) => {
     );
 };
 
-export default CatalogCategory;
+export default CatalogCard;

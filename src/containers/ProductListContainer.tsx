@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppStateType} from "../redux/reducers/rootReducer";
 import {connect} from "react-redux";
-import {NavLink, useLocation} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {bindActionCreators} from "redux";
 
 import * as basketActions from '../redux/actions/basket'
@@ -9,74 +9,75 @@ import * as productsAction from '../redux/actions/products'
 
 import '../App.scss'
 
-import ProductCard from "../components/ProductCard/ProductCard";
-import CatalogCategory from "../components/CatalogCatagory/CatalogCategory";
+import ProductPage from "../components/ProductPage/ProductPage";
+import Paginator from "../components/Paginator/Paginator";
+import CatalogPage from "../components/CatalogPage/CatalogPage";
+import {CategoryType, ItemsType} from "../types/types";
 
-const ProductListContainer = (props: any) => {
+
+type Props = {
+    products: Array<ItemsType>
+
+    catalogs1: Array<CategoryType>
+    catalogs2:  Array<CategoryType>
+
+    pageSize: number
+    currentPage: number
+    totalProductsCount: number
+
+    basket: Array<ItemsType>
+
+    addToBasket: (obj: ItemsType, id: number) => void
+    setCurrentPage: (currentPage: number) => void
+}
+
+
+const ProductListContainer: React.FC<Props> = ({catalogs1, catalogs2,
+                                                   addToBasket,
+                                                   setCurrentPage,
+                                                   totalProductsCount, currentPage,
+                                                   pageSize,
+                                                   products, basket}) => {
 
     //Сортировка по алфавиту
-    let sortProducts = props.products
-    sortProducts.sort((a: any, b: any) => a.title.localeCompare(b.title))
+    let sortProducts = products
+    sortProducts.sort((a: ItemsType, b: ItemsType) => a.title.localeCompare(b.title))
+
+    const onPageChanged = (page: number) => setCurrentPage(page)
 
     let location = useLocation();
 
-    const {addToBasket, setCurrentPage, totalProductsCount, currentPage, pageSize} = props
-
-    let pagesCount = Math.ceil(totalProductsCount / pageSize)
-    let pages = []
-
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
-    const onPageChange = (page: number) => {
-        setCurrentPage(page)
-    }
-
     switch (location.pathname) {
+        case  '/':
+            return <CatalogPage catalogs={catalogs1}/>
         case '/catalog/catalog_1_1':
             return (
                 <>
-                    <div className='catalogs'>
-                        {
-                            props.catalogs2.map((catalog: any, i: number) => {
-                                return <NavLink key={i} className='catalog'
-                                                to={`/catalog/${catalog.url}`}><CatalogCategory {...catalog}/>
-                                </NavLink>
-                            })
-                        }
-                    </div>
-                    <div className='paginator'>
-                        {pages.map(p => {
+                    <CatalogPage catalogs={catalogs2}/>
 
-                            return <span key={p} className={currentPage === p ? 'selectedPage' : ''}
-                                         onClick={() => onPageChange(p)}>{p}</span>
-                        })}
+                    <Paginator totalProductsCount={totalProductsCount}
+                               pageSize={pageSize}
+                               currentPage={currentPage}
+                               onPageChanged={onPageChanged}/>
 
-                    </div>
-                    <div className='products'>
-                        {
-                            props.products.map((product: any, i: number) => (
-                                    product.pageNumber === currentPage &&
-                                    <ProductCard key={i} {...product} addToBasket={addToBasket}/>
-                                )
-                            )
-                        }
-                    </div>
+                    <ProductPage products={sortProducts}
+                                 currentPage={currentPage}
+                                 addToBasket={addToBasket}
+                                 basket={basket}/>
                 </>
             );
         case '/catalog/catalog_2_1':
             return (
                 <>
-                    <div className='products'>
-                        {
-                            props.products.map((product: any, i: number) => (
-                                    product.pageNumber === currentPage &&
-                                    <ProductCard key={i} {...product} addToBasket={addToBasket}/>
-                                )
-                            )
-                        }
-                    </div>
+                    <Paginator totalProductsCount={totalProductsCount}
+                               pageSize={pageSize}
+                               currentPage={currentPage}
+                               onPageChanged={onPageChanged}/>
+
+                    <ProductPage products={sortProducts}
+                                 currentPage={currentPage}
+                                 addToBasket={addToBasket}
+                                 basket={basket}/>
                 </>
             );
 
@@ -87,10 +88,15 @@ const ProductListContainer = (props: any) => {
 
 const mapStateToProps = (state: AppStateType) => ({
     products: state.products.items,
+
+    catalogs1: state.catalogs.category1,
     catalogs2: state.catalogs.category2,
+
     pageSize: state.products.pageSize,
     currentPage: state.products.currentPage,
-    totalProductsCount: state.products.items.length
+    totalProductsCount: state.products.items.length,
+
+    basket: state.basket.items
 
 })
 

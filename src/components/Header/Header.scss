@@ -1,5 +1,21 @@
 header {
-  background-color: red;
+  background-color: #000;
   display: flex;
   justify-content: space-between;
+  color: white;
+  font-size: 30px;
+
+  h1 {
+    font-size: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+
+    &:hover {
+
+    }
+  }
+
 }

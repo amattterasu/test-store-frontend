@@ -1,8 +1,22 @@
 import React from 'react';
 import './ProductCard.scss'
+import {ItemsType} from "../../types/types";
 
-const ProductCard: React.FC = (product) => {
-    const {title, price, image, addToBasket}: any = product
+type Props = {
+    title: string
+    price: number
+    image: string
+    addToBasket: (product: ItemsType, id: number) => void
+    isBasket?: boolean
+    basket: Array<ItemsType>
+    id: number
+    count: number
+}
+
+const ProductCard: React.FC<Props> = (product) => {
+    const {title, price, image, addToBasket, isBasket, basket, id, count}: Props = product
+
+    let addedCount: number = basket.reduce((count: number, productBasket: ItemsType) => count + (productBasket.id === id ? 1 : 0), 0)
     return (
         <div className='productCard'>
             <div className='productImage'>
@@ -11,12 +25,16 @@ const ProductCard: React.FC = (product) => {
             </div>
             <div className='productInfo'>
                 <h3>{title}</h3>
-                <p className='price'>{price}</p>
+                <p className='price'>{price} руб.</p>
             </div>
-            <button onClick={() => addToBasket(product)}>
-                Добавить в корзину
-            </button>
-
+            {
+                !isBasket && <button onClick={() => addToBasket(product, id)}>
+                    Добавить в корзину  {addedCount > 0 && `(${addedCount})`}
+                </button>
+            }
+            {
+                count
+            }
         </div>
     );
 };

@@ -1,30 +1,26 @@
 import React from 'react'
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {connect} from "react-redux";
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import './App.scss'
 
-import CatalogContainer from "./containers/CatalogContainer";
-import ProductListContainer from "./containers/ProductListContainer";
-import HeaderContainer from "./containers/HeaderContainer";
+import ProductListContainer from './containers/ProductListContainer'
+import HeaderContainer from './containers/HeaderContainer'
+import BasketContainer from './containers/BasketContainer'
+import OrderContainer from './containers/OrderContainer/OrderContainer'
 
-const App: React.FC = (props) => {
-
+const App: React.FC = () => {
     return (
         <div className='app-wrapper'>
-            <HeaderContainer/>
-
             <BrowserRouter >
+                <HeaderContainer/>
                 <Switch>
-                    <Route exact path={['/', '/catalog/']} render={() => <CatalogContainer />}/>
-                    <Route path='/catalog/:catalogId' render={() => <ProductListContainer />}/>
+                    <Route exact path={['/', '/catalog/', '/catalog/:catalogId']} render={() => <ProductListContainer />}/>
+                    <Route path='/basket' render={() => <BasketContainer />}/>
+                    <Route path='/order' render={() => <OrderContainer />}/>
                 </Switch>
             </BrowserRouter>
         </div>
     )
 }
 
-const mapStateToProps = ({product}: any) => ({
-})
-
-export default connect(mapStateToProps, null)(App);
+export default App;

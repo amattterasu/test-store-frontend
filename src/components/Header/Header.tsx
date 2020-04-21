@@ -1,10 +1,14 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
 import './Header.scss'
 
-const Header: React.FC = (props: any) => {
+type Props = {
+    totalPrice: number
+    totalCount: number
+}
 
-    const {totalPrice, count} = props
+const Header: React.FC<Props> = ({totalPrice, totalCount}) => {
 
     return (
         <header>
@@ -16,7 +20,7 @@ const Header: React.FC = (props: any) => {
                     Итог <b>{totalPrice}</b>
                 </div>
                 <div className='headerItem'>
-                    Корзина <b>{count}</b>
+                    <NavLink to='/basket'>Корзина <b>{totalCount}</b></NavLink>
                 </div>
             </div>
         </header>

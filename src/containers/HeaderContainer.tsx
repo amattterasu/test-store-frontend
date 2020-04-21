@@ -1,11 +1,18 @@
 import React from 'react';
-import Header from "../components/Header/Header";
 import {connect} from "react-redux";
-import {AppStateType} from "../redux/reducers/rootReducer";
 import {bindActionCreators} from "redux";
+
+import {AppStateType} from "../redux/reducers/rootReducer";
 import * as basketActions from "../redux/actions/basket";
 
-const HeaderContainer = (props: any) => {
+import Header from "../components/Header/Header";
+
+type Props = {
+    totalCount: number
+    totalPrice: number
+}
+
+const HeaderContainer: React.FC<Props> = (props) => {
     return (
         <div>
             <Header {...props}/>
@@ -14,9 +21,8 @@ const HeaderContainer = (props: any) => {
 };
 
 const mapStateToProps = (state: AppStateType) => ({
-    totalPrice: state.basket.items.reduce((total: any, product: any) => total + product.price, 0),
-    count: state.basket.items.length
-
+    totalCount: state.basket.totalCount,
+    totalPrice: state.basket.totalPrice
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
