@@ -29,25 +29,34 @@ const BasketCard = (product: Props) => {
                 <h3>{title}</h3>
             </div>
             {!isOrder &&
-            <button onClick={() => removeFromBasket(product, id, sameTypePrice, count)}>
-                Удалить
-            </button>
+                <div className='productDelete-btn'>
+                    <button onClick={() => removeFromBasket(product, id, sameTypePrice, count)}>
+                        Удалить
+                    </button>
+                </div>
             }
 
-            {
-                count
-            }
-            <br/>
-            {
-                sameTypePrice
-            }
+           <div className='productCountPrice'>
+               <div className='productPrice'>
+                   &#8381; &nbsp;
+                   {
+                       sameTypePrice
+                   }
+               </div>
+               <div className='productCount'>
+                   Штук: &nbsp;
+                   {
+                       count
+                   }
+               </div>
+           </div>
             {!isOrder &&
-            <div>
+            <div className='basket-btn'>
                 <button onClick={() => quantityUp(product, id)}>
-                    +
+                   <span> + </span>
                 </button>
                 <button onClick={() => quantityDown(product, id)}>
-                    -
+                    <span> - </span>
                 </button>
             </div>
             }

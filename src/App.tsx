@@ -5,7 +5,7 @@ import './App.scss'
 
 import ProductListContainer from './containers/ProductListContainer'
 import HeaderContainer from './containers/HeaderContainer'
-import BasketContainer from './containers/BasketContainer'
+import BasketContainer from './containers/BasketContainer/BasketContainer'
 import OrderContainer from './containers/OrderContainer/OrderContainer'
 
 const App: React.FC = () => {
@@ -13,11 +13,13 @@ const App: React.FC = () => {
         <div className='app-wrapper'>
             <BrowserRouter >
                 <HeaderContainer/>
-                <Switch>
-                    <Route exact path={['/', '/catalog/', '/catalog/:catalogId']} render={() => <ProductListContainer />}/>
-                    <Route path='/basket' render={() => <BasketContainer />}/>
-                    <Route path='/order' render={() => <OrderContainer />}/>
-                </Switch>
+                <div className='wrapperApp'>
+                    <Switch>
+                        <Route exact path={['/', '/catalog/', '/catalog/:catalogId']} render={() => <ProductListContainer />}/>
+                        <Route path='/basket' render={() => <BasketContainer />}/>
+                        <Route path='/order' render={() => <OrderContainer />}/>
+                    </Switch>
+                </div>
             </BrowserRouter>
         </div>
     )

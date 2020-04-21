@@ -34,7 +34,7 @@ const initialState = {
             id: 3,
             title: "a Товар 4",
             image: "https://images-na.ssl-images-amazon.com/images/I/71kZfQA-Y7L._AC_SX342_.jpg",
-            price: 120000,
+            price: 12000,
             pageNumber: 1
         },
         {

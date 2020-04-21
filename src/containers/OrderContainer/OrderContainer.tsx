@@ -98,11 +98,12 @@ class OrderContainer extends React.Component<PropsType> {
         const ids = temp.filter((item: { id: number, count: number }) => item.id !== undefined)
 
         return (
-            <div>
+            <div className='order'>
+                <h1>Оформление заказа</h1>
                 {
                     !this.state.success ? (
-                            <div>
-                                <div>
+                            <div className='wrapper'>
+                                <div className='productList'>
                                     {
                                         products.map((product: any) =>
                                             ids.map((item: any, index: number) => (
@@ -118,10 +119,12 @@ class OrderContainer extends React.Component<PropsType> {
                                     }
                                 </div>
 
-                                <div>
+                                <div className='totalPrice'>
+                                    Итоговая цена: &nbsp;
                                     {
                                         totalPrice
                                     }
+                                    &nbsp; &#8381;
                                 </div>
 
                                 <div className='orderForm'>
@@ -136,7 +139,7 @@ class OrderContainer extends React.Component<PropsType> {
 
                             </div>
                         ) :
-                        <div>
+                        <div className='block'>
                             <h1>Заказ отправлен!</h1>
                             <div>
                                 <ul>

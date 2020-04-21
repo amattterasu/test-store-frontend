@@ -1,3 +1,76 @@
-.orderForm {
-  width: 300px;
+.order {
+  padding: 0 10px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .productList {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .productCard {
+      margin: 10px 20px;
+    }
+  }
+
+  .orderForm {
+    margin-top: 10px;
+    width: 400px;
+    border: 1px solid #dadada;
+    padding: 15px;
+
+    button {
+      width: 100%;
+      cursor: pointer;
+      line-height: 40px;
+      border: 0;
+      background-color: black;
+      border-radius: 5px;
+      color: #fff;
+
+      &:hover {
+        background-color: #343133;
+      }
+    }
+  }
+
+  .totalPrice {
+    margin: 10px 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  text-align: center;
+
+  .block {
+    display: inline-block;
+    width: content-box;
+    background: #fff;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, .04204);
+    padding: 45px;
+    border-radius: 3px;
+
+    ul {
+      font-size: 20px;
+      li {
+       list-style: none;
+      }
+    }
+
+  }
+
+
+
 }

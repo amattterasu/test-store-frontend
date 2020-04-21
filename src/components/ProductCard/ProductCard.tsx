@@ -25,12 +25,15 @@ const ProductCard: React.FC<Props> = (product) => {
             </div>
             <div className='productInfo'>
                 <h3>{title}</h3>
-                <p className='price'>{price} руб.</p>
+                <p className='price'><span className='rub'>P</span> {price} </p>
             </div>
             {
-                !isBasket && <button onClick={() => addToBasket(product, id)}>
-                    Добавить в корзину  {addedCount > 0 && `(${addedCount})`}
-                </button>
+                !isBasket &&
+                <div className='product-btn'>
+                    <button onClick={() => addToBasket(product, id)}>
+                        Добавить в корзину  {addedCount > 0 && `(${addedCount})`}
+                    </button>
+                </div>
             }
             {
                 count

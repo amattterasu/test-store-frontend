@@ -1,4 +1,5 @@
 import React from 'react';
+import './Paginator.scss'
 
 type Props = {
     totalProductsCount: number
